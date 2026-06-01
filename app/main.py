@@ -232,3 +232,48 @@ def azure_resources():
         ORDER BY resource_group_name, resource_type, resource_name
     """)
     return {"count": len(items), "items": items}
+
+@app.get("/compliance/checks")
+def compliance_checks():
+    items = fetch_all("""
+        SELECT *
+        FROM compliance_checks
+        ORDER BY category, severity, check_id
+    """)
+    return {"count": len(items), "items": items}
+
+
+@app.get("/compliance/results")
+def compliance_results():
+    items = fetch_all("""
+        SELECT *
+        FROM compliance_results
+        ORDER BY status, check_id, affected_object
+    """)
+    return {"count": len(items), "items": items}
+
+
+@app.get("/compliance/summary")
+def compliance_summary():
+    summary = fetch_all("""
+        SELECT
+            check_id,
+            status,
+            COUNT(*) AS count
+        FROM compliance_results
+        GROUP BY check_id, status
+        ORDER BY check_id, status
+    """)
+
+    failed = fetch_all("""
+        SELECT *
+        FROM compliance_results
+        WHERE status='FAIL'
+        ORDER BY check_id, affected_object
+    """)
+
+    return {
+        "summary": summary,
+        "failed_count": len(failed),
+        "failed_items": failed
+    }

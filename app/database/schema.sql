@@ -227,3 +227,21 @@ CREATE TABLE IF NOT EXISTS azure_resources (
     cost_model TEXT NOT NULL,
     purpose TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS compliance_checks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    check_id TEXT NOT NULL UNIQUE,
+    check_name TEXT NOT NULL,
+    category TEXT NOT NULL,
+    severity TEXT NOT NULL,
+    description TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS compliance_results (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    check_id TEXT NOT NULL,
+    status TEXT NOT NULL,
+    affected_object TEXT NOT NULL,
+    evidence TEXT NOT NULL,
+    checked_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
