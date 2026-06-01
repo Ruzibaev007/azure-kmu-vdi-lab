@@ -201,3 +201,29 @@ CREATE TABLE IF NOT EXISTS rbac_assignments (
     role_name TEXT NOT NULL,
     scope TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS azure_subscriptions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    subscription_name TEXT NOT NULL UNIQUE,
+    subscription_id TEXT NOT NULL UNIQUE,
+    environment TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS azure_resource_groups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    resource_group_name TEXT NOT NULL UNIQUE,
+    location TEXT NOT NULL,
+    subscription_id TEXT NOT NULL,
+    purpose TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS azure_resources (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    resource_name TEXT NOT NULL UNIQUE,
+    resource_type TEXT NOT NULL,
+    resource_group_name TEXT NOT NULL,
+    location TEXT NOT NULL,
+    criticality TEXT NOT NULL,
+    cost_model TEXT NOT NULL,
+    purpose TEXT NOT NULL
+);

@@ -200,3 +200,32 @@ def iam_user(username: str):
         "groups": memberships,
         "rbac_assignments": assignments
     }
+
+@app.get("/azure/subscriptions")
+def azure_subscriptions():
+    items = fetch_all("""
+        SELECT *
+        FROM azure_subscriptions
+        ORDER BY subscription_name
+    """)
+    return {"count": len(items), "items": items}
+
+
+@app.get("/azure/resource-groups")
+def azure_resource_groups():
+    items = fetch_all("""
+        SELECT *
+        FROM azure_resource_groups
+        ORDER BY resource_group_name
+    """)
+    return {"count": len(items), "items": items}
+
+
+@app.get("/azure/resources")
+def azure_resources():
+    items = fetch_all("""
+        SELECT *
+        FROM azure_resources
+        ORDER BY resource_group_name, resource_type, resource_name
+    """)
+    return {"count": len(items), "items": items}
