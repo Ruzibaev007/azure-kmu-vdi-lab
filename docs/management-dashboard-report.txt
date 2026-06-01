@@ -1,0 +1,41 @@
+=== KMU MANAGEMENT DASHBOARD ===
+Employees: 50
+User Accounts: 50
+Assets: 50
+Tickets: 10
+Security Policies: 16
+Backup Policies: 3
+Security Events: 3
+
+=== Employees per Department ===
+('Lager', 14)
+('Produktion', 13)
+('Engineering', 8)
+('Einkauf', 4)
+('Disposition', 3)
+('Personal', 2)
+('Management', 2)
+('IT', 2)
+('Buchhaltung', 2)
+
+=== Assets per Zone ===
+('IT-ZONE', 10, 2)
+('MGMT-ZONE', 11, 2)
+('HR-ZONE', 12, 2)
+('FINANCE-ZONE', 13, 2)
+('PROCUREMENT-ZONE', 14, 4)
+('DISPATCH-ZONE', 15, 3)
+('ENG-ZONE', 20, 8)
+('WAREHOUSE-ZONE', 30, 14)
+('PRODUCTION-ZONE', 40, 13)
+
+=== Payroll per Department ===
+('Produktion', 48850)
+('Lager', 46700)
+('Engineering', 36650)
+('Einkauf', 16600)
+('Management', 14700)
+('Disposition', 12100)
+('IT', 9500)
+('Buchhaltung', 9400)
+('Personal', 8300)

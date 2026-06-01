@@ -67,3 +67,103 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     target TEXT NOT NULL,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS purchase_orders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_number TEXT NOT NULL UNIQUE,
+    department TEXT NOT NULL,
+    requested_by TEXT NOT NULL,
+    status TEXT NOT NULL,
+    amount_eur REAL NOT NULL,
+    description TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS inventory_items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    item_number TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
+    category TEXT NOT NULL,
+    quantity INTEGER NOT NULL,
+    location TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'available'
+);
+
+CREATE TABLE IF NOT EXISTS work_orders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    work_order_number TEXT NOT NULL UNIQUE,
+    department TEXT NOT NULL,
+    assigned_to TEXT NOT NULL,
+    status TEXT NOT NULL,
+    priority TEXT NOT NULL,
+    description TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS tickets (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ticket_number TEXT NOT NULL UNIQUE,
+    ticket_type TEXT NOT NULL,
+    category TEXT NOT NULL,
+    priority TEXT NOT NULL,
+    status TEXT NOT NULL,
+    created_by TEXT NOT NULL,
+    assigned_to TEXT NOT NULL,
+    asset_tag TEXT,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS ticket_comments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ticket_number TEXT NOT NULL,
+    author TEXT NOT NULL,
+    comment TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS ticket_history (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ticket_number TEXT NOT NULL,
+    action TEXT NOT NULL,
+    actor TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS security_policies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    policy_name TEXT NOT NULL UNIQUE,
+    target_group TEXT NOT NULL,
+    category TEXT NOT NULL,
+    setting_value TEXT NOT NULL,
+    description TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS backup_policies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    policy_name TEXT NOT NULL UNIQUE,
+    target_type TEXT NOT NULL,
+    frequency TEXT NOT NULL,
+    retention_days INTEGER NOT NULL,
+    recovery_objective TEXT NOT NULL,
+    description TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS monitoring_sources (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    source_name TEXT NOT NULL UNIQUE,
+    source_type TEXT NOT NULL,
+    zone TEXT NOT NULL,
+    status TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS security_events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_id TEXT NOT NULL UNIQUE,
+    severity TEXT NOT NULL,
+    source_name TEXT NOT NULL,
+    event_type TEXT NOT NULL,
+    description TEXT NOT NULL,
+    detected_at TEXT NOT NULL
+);
