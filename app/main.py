@@ -123,3 +123,80 @@ def cmdb_asset(asset_tag: str):
         "relationships": relationships,
         "tickets": tickets
     }
+
+@app.get("/iam/groups")
+def iam_groups():
+    items = fetch_all("""
+        SELECT *
+        FROM groups
+        ORDER BY group_name
+    """)
+    return {"count": len(items), "items": items}
+
+
+@app.get("/iam/group-memberships")
+def iam_group_memberships():
+    items = fetch_all("""
+        SELECT *
+        FROM group_memberships
+        ORDER BY group_name, username
+    """)
+    return {"count": len(items), "items": items}
+
+
+@app.get("/iam/rbac/roles")
+def iam_rbac_roles():
+    items = fetch_all("""
+        SELECT *
+        FROM rbac_roles
+        ORDER BY role_name
+    """)
+    return {"count": len(items), "items": items}
+
+
+@app.get("/iam/rbac/assignments")
+def iam_rbac_assignments():
+    items = fetch_all("""
+        SELECT *
+        FROM rbac_assignments
+        ORDER BY principal_name, role_name
+    """)
+    return {"count": len(items), "items": items}
+
+
+@app.get("/iam/user/{username}")
+def iam_user(username: str):
+    employee = fetch_one("""
+        SELECT *
+        FROM employees
+        WHERE benutzername=?
+    """, (username,))
+
+    account = fetch_one("""
+        SELECT *
+        FROM user_accounts
+        WHERE username=?
+    """, (username,))
+
+    memberships = fetch_all("""
+        SELECT group_name
+        FROM group_memberships
+        WHERE username=?
+        ORDER BY group_name
+    """, (username,))
+
+    assignments = fetch_all("""
+        SELECT ra.*
+        FROM rbac_assignments ra
+        JOIN group_memberships gm
+          ON gm.group_name = ra.principal_name
+        WHERE gm.username=?
+        ORDER BY ra.role_name
+    """, (username,))
+
+    return {
+        "employee": employee,
+        "account": account,
+        "groups": memberships,
+        "rbac_assignments": assignments
+    }

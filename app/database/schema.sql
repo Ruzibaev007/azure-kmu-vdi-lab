@@ -176,3 +176,28 @@ CREATE TABLE IF NOT EXISTS cmdb_relationships (
     target_type TEXT NOT NULL,
     target_id TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS groups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_name TEXT NOT NULL UNIQUE,
+    description TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS group_memberships (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    group_name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS rbac_roles (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role_name TEXT NOT NULL UNIQUE,
+    description TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS rbac_assignments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    principal_name TEXT NOT NULL,
+    role_name TEXT NOT NULL,
+    scope TEXT NOT NULL
+);
