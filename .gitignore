@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+local.settings.json
+app.zip
+deploy_pkg/
+*.log
+
+# sensitive / generated
+*.sqlite
+*.db-journal
+
+# Azure
+.azure/
+.azd/
