@@ -64,3 +64,25 @@ def management_report():
         "departments": departments,
         "network_zones": zones
     }
+
+@app.get("/tickets/open")
+def open_tickets():
+    return {
+        "count": len(fetch_all(
+            "SELECT * FROM tickets WHERE status!='Closed'"
+        )),
+        "items": fetch_all(
+            "SELECT * FROM tickets WHERE status!='Closed'"
+        )
+    }
+
+@app.get("/tickets/open")
+def open_tickets():
+    return {
+        "count": len(fetch_all(
+            "SELECT * FROM tickets WHERE status!='Closed'"
+        )),
+        "items": fetch_all(
+            "SELECT * FROM tickets WHERE status!='Closed'"
+        )
+    }
