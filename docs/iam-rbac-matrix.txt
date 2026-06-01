@@ -1,0 +1,52 @@
+=== IAM / RBAC MATRIX ===
+
+[Groups]
+('GG_AVD_Users', 'Users allowed to access virtual desktops')
+('GG_All_Employees', 'All active employees')
+('GG_Backup_Operators', 'Backup and recovery operators')
+('GG_Dispatch_Users', 'Dispatching users')
+('GG_Engineering_Users', 'Engineering users')
+('GG_Finance_Users', 'Accounting and finance users')
+('GG_HR_Users', 'Human resources users')
+('GG_Helpdesk', 'Helpdesk operators')
+('GG_IT_Admins', 'IT administrators')
+('GG_MFA_Required', 'Users required to use MFA')
+('GG_Management_Users', 'Management users')
+('GG_Procurement_Users', 'Purchasing users')
+('GG_Production_Users', 'Production users')
+('GG_Security_Operators', 'Security monitoring operators')
+('GG_Warehouse_Users', 'Warehouse users')
+
+[Members per Group]
+('GG_AVD_Users', 50)
+('GG_All_Employees', 50)
+('GG_MFA_Required', 50)
+('GG_Warehouse_Users', 14)
+('GG_Production_Users', 13)
+('GG_Engineering_Users', 8)
+('GG_Procurement_Users', 4)
+('GG_Dispatch_Users', 3)
+('GG_Backup_Operators', 2)
+('GG_Finance_Users', 2)
+('GG_HR_Users', 2)
+('GG_Helpdesk', 2)
+('GG_IT_Admins', 2)
+('GG_Management_Users', 2)
+('GG_Security_Operators', 2)
+
+[RBAC Assignments]
+('GG_Backup_Operators', 'Backup Operator', '/subscriptions/demo/resourceGroups/rg-kmu-vdi-lab/recovery')
+('GG_Engineering_Users', 'Reader', '/subscriptions/demo/resourceGroups/rg-kmu-vdi-lab/engineering')
+('GG_Finance_Users', 'Reader', '/subscriptions/demo/resourceGroups/rg-kmu-vdi-lab/reports/finance')
+('GG_HR_Users', 'Reader', '/subscriptions/demo/resourceGroups/rg-kmu-vdi-lab/reports/hr')
+('GG_Helpdesk', 'Helpdesk Administrator', '/tenants/demo')
+('GG_IT_Admins', 'Contributor', '/subscriptions/demo/resourceGroups/rg-kmu-vdi-lab')
+('GG_IT_Admins', 'VM Operator', '/subscriptions/demo/resourceGroups/rg-kmu-vdi-lab/providers/Microsoft.Compute')
+('GG_Management_Users', 'Reader', '/subscriptions/demo/resourceGroups/rg-kmu-vdi-lab')
+('GG_Production_Users', 'Reader', '/subscriptions/demo/resourceGroups/rg-kmu-vdi-lab/production')
+('GG_Security_Operators', 'Security Administrator', '/subscriptions/demo/resourceGroups/rg-kmu-vdi-lab/security')
+('GG_Warehouse_Users', 'Reader', '/subscriptions/demo/resourceGroups/rg-kmu-vdi-lab/warehouse')
+
+[Privileged Users]
+('MA004', 'Leon', 'Hoffmann', 'l.hoffmann', 'IT-Administrator')
+('MA003', 'Thomas', 'Becker', 't.becker', 'Systemadministrator')
