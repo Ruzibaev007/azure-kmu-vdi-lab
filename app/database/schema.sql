@@ -167,3 +167,12 @@ CREATE TABLE IF NOT EXISTS security_events (
     description TEXT NOT NULL,
     detected_at TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS cmdb_relationships (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    source_type TEXT NOT NULL,
+    source_id TEXT NOT NULL,
+    relation_type TEXT NOT NULL,
+    target_type TEXT NOT NULL,
+    target_id TEXT NOT NULL
+);

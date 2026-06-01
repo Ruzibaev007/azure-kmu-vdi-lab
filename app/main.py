@@ -86,3 +86,40 @@ def open_tickets():
             "SELECT * FROM tickets WHERE status!='Closed'"
         )
     }
+
+@app.get("/cmdb/relationships")
+def cmdb_relationships():
+    items = fetch_all("""
+        SELECT *
+        FROM cmdb_relationships
+        ORDER BY source_type, source_id, relation_type
+    """)
+    return {"count": len(items), "items": items}
+
+
+@app.get("/cmdb/asset/{asset_tag}")
+def cmdb_asset(asset_tag: str):
+    asset = fetch_one(
+        "SELECT * FROM assets WHERE asset_tag=?",
+        (asset_tag,)
+    )
+
+    relationships = fetch_all("""
+        SELECT *
+        FROM cmdb_relationships
+        WHERE source_id=? OR target_id=?
+        ORDER BY relation_type
+    """, (asset_tag, asset_tag))
+
+    tickets = fetch_all("""
+        SELECT *
+        FROM tickets
+        WHERE asset_tag=?
+        ORDER BY ticket_number
+    """, (asset_tag,))
+
+    return {
+        "asset": asset,
+        "relationships": relationships,
+        "tickets": tickets
+    }
