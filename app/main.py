@@ -17,6 +17,9 @@ def dashboard():
         "security_policies": fetch_one("SELECT COUNT(*) AS count FROM security_policies")["count"],
         "backup_policies": fetch_one("SELECT COUNT(*) AS count FROM backup_policies")["count"],
         "security_events": fetch_one("SELECT COUNT(*) AS count FROM security_events")["count"],
+        "groups": fetch_one("SELECT COUNT(*) AS count FROM groups")["count"],
+        "rbac_assignments": fetch_one("SELECT COUNT(*) AS count FROM rbac_assignments")["count"],
+        "azure_resources": fetch_one("SELECT COUNT(*) AS count FROM azure_resources")["count"],
     }
 
 @app.get("/employees")
