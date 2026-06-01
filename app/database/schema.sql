@@ -245,3 +245,20 @@ CREATE TABLE IF NOT EXISTS compliance_results (
     evidence TEXT NOT NULL,
     checked_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS cost_policies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    policy_name TEXT NOT NULL UNIQUE,
+    category TEXT NOT NULL,
+    rule_text TEXT NOT NULL,
+    severity TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS cost_items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    resource_name TEXT NOT NULL,
+    resource_type TEXT NOT NULL,
+    estimated_monthly_eur REAL NOT NULL,
+    cost_state TEXT NOT NULL,
+    optimization_note TEXT NOT NULL
+);

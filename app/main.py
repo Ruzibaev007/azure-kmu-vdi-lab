@@ -277,3 +277,45 @@ def compliance_summary():
         "failed_count": len(failed),
         "failed_items": failed
     }
+
+@app.get("/cost/policies")
+def cost_policies():
+    items = fetch_all("""
+        SELECT *
+        FROM cost_policies
+        ORDER BY severity, category, policy_name
+    """)
+    return {"count": len(items), "items": items}
+
+
+@app.get("/cost/items")
+def cost_items():
+    items = fetch_all("""
+        SELECT *
+        FROM cost_items
+        ORDER BY estimated_monthly_eur DESC, resource_name
+    """)
+    return {"count": len(items), "items": items}
+
+
+@app.get("/cost/summary")
+def cost_summary():
+    total = fetch_one("""
+        SELECT SUM(estimated_monthly_eur) AS total
+        FROM cost_items
+    """)["total"]
+
+    by_state = fetch_all("""
+        SELECT cost_state, COUNT(*) AS resources, SUM(estimated_monthly_eur) AS monthly_eur
+        FROM cost_items
+        GROUP BY cost_state
+        ORDER BY monthly_eur DESC
+    """)
+
+    return {
+        "target_users": 50,
+        "physical_vms_limit": "1-3",
+        "mode": "trial-safe",
+        "estimated_monthly_eur": total,
+        "by_state": by_state
+    }
