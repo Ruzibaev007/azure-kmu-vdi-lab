@@ -323,7 +323,7 @@ This project demonstrates practical experience with:
 
 # 👨‍💻 Author
 
-https://github.com/Protector080322
+https://github.com/Ruzibaev007
 
 IT Infrastructure • Cloud • Azure • Linux • Networking • Security
 
